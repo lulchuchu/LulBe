@@ -16,6 +16,14 @@ pipeline {
         }
       }
     }
+    stage('Build on instance') {
+      steps {
+        sh "curl https://lulbucket-ta.s3.ap-southeast-2.amazonaws.com/lulkeypair.pem"
+        sh "ssh -o StrictHostKeyChecking=no -i 'lulkeypair.pem' ${TARGET_EC2_HOST} 'docker run --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
+        docker run --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
+        docker run --name nginx-docker --network lul-net -p 80:8090 -d -v /home/ec2-user/code/nginx.conf:/etc/nginx/nginx.conf nginx'"
+      }
+    }
   }
   post {
     always {
