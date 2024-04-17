@@ -5,7 +5,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker build -t $DOCKER_IMAGE .'
-        sh 'docker tag $DOCKER_TAG $DOCKER_IMAGE'
       }
     }
     stage('Deploy') {
