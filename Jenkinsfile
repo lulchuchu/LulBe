@@ -21,9 +21,9 @@ pipeline {
             sh """
                 ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-25-103-163.ap-southeast-2.compute.amazonaws.com '
                     docker network create lul-net
-                    docker run --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
-                    docker run --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
-                    docker run --name nginx-docker --network lul-net -p 80:8090 -d -v nginx.conf:/etc/nginx/nginx.conf nginx
+                    docker run --rm --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run --rm --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run --rm --name nginx-docker --network lul-net -p 80:8090 -d -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf nginx
                 '
             """
         }
