@@ -37,7 +37,7 @@ app.get("/goals", async (req, res) => {
       goals: goals.map((goal) => ({
         id: goal.id,
         text: goal.text,
-        version: "DUMAAA",
+        version: "DUMAAA!",
       })),
     });
     console.log("FETCHED GOALS");
