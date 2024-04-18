@@ -17,22 +17,19 @@ pipeline {
     }
     stage('Build on instance') {
       steps {
-        // sh "pwd"
-        // sh "ls"
-	      // // sh "sudo chmod 777 'lulkeypair.pem'"
-        // sh " sudo ssh -o StrictHostKeyChecking=no -i lulkeypair.pem ${TARGET_EC2_HOST} 'docker run --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
-        // docker run --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
-        // docker run --name nginx-docker --network lul-net -p 80:8090 -d -v nginx.conf:/etc/nginx/nginx.conf nginx'"
         sshagent(credentials: ['ssh-cred']) {
-          sh '''
-              [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-              ssh-keyscan -t rsa,dsa ec2-3-25-103-163.ap-southeast-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-              ssh ec2-user@ec2-3-25-103-163.ap-southeast-2.compute.amazonaws.com 'docker run --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
-              docker run --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend ; \
-              docker run --name nginx-docker --network lul-net -p 80:8090 -d -v nginx.conf:/etc/nginx/nginx.conf nginx'
-          '''
+            sh """
+                set -e  # Ensure the shell exits on error
+                [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                ssh-keyscan -t rsa,dsa ec2-3-25-103-163.ap-southeast-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+                ssh ec2-user@ec2-3-25-103-163.ap-southeast-2.compute.amazonaws.com '
+                    set -x  # Enable command echo and expand
+                    docker run --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run --name nginx-docker --network lul-net -p 80:8090 -d -v nginx.conf:/etc/nginx/nginx.conf nginx
+                '
+            """
         }
-
       }
     }
   }
