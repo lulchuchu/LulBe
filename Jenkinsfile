@@ -45,7 +45,7 @@ pipeline {
                     else
                       echo "nginx-conf not exist."
                     fi
-                    git pull tienanhknock/lulbe
+                    docker pull tienanhknock/lulbe
                     docker network create lul-net
                     docker run --rm --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
                     docker run --rm --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
