@@ -37,6 +37,7 @@ app.get("/goals", async (req, res) => {
       goals: goals.map((goal) => ({
         id: goal.id,
         text: goal.text,
+        version: "DUMA",
       })),
     });
     console.log("FETCHED GOALS");
