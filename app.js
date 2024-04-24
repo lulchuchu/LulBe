@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/goals", async (req, res) => {
-    console.log("Hello from skrtttttt!!!! " + hostname);
+    console.log("Hello ssss from skrtttttt!!!! " + hostname);
     try {
         const goals = await Goal.find();
         res.status(200).json({
