@@ -112,7 +112,11 @@ mongoose.connect(
             console.error("FAILED TO CONNECT TO MONGODB");
             console.error(err);
         } else {
-            console.log("CONNECTED TO MONGODB!!");
+            console.log(
+                "CONNECTED TO MONGODB!!",
+                process.env.MONGO_CONNECTION_STRING
+            );
+            console.log("Running on !!", process.env.LISTENING_PORT);
             app.listen(process.env.LISTENING_PORT);
         }
     }
