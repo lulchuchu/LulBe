@@ -116,7 +116,7 @@ mongoose.connect(
                 "CONNECTED TO MONGODB!!!",
                 process.env.MONGO_CONNECTION_STRING
             );
-            console.log("Running on !!", process.env.LISTENING_PORT);
+            console.log("Running on !!!", process.env.LISTENING_PORT);
             app.listen(process.env.LISTENING_PORT);
         }
     }
