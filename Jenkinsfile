@@ -19,7 +19,7 @@ pipeline {
       steps {
         sshagent(credentials: ['ssh-cred']) {
             sh """
-                ssh -o StrictHostKeyChecking=no ec2-user@3.24.110.164 '
+                ssh -o StrictHostKeyChecking=no ec2-user@3.107.50.218 '
                     if docker ps | grep -q lulbe1; then
                       docker stop lulbe1
                     else
