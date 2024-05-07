@@ -47,9 +47,9 @@ pipeline {
                     fi
                     docker pull tienanhknock/lulbackend
                     docker network create lul-net
-                    docker run --rm --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
-                    docker run --rm --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
-                    docker run --rm --name nginx-docker --network lul-net -p 80:8090 -d -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf nginx
+                    docker run  --name lulbe1 --hostname lulbe1 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run  --name lulbe2 --hostname lulbe2 --network lul-net -e LISTENING_PORT=8090 -d tienanhknock/lulbackend
+                    docker run  --name nginx-docker --network lul-net -p 80:8090 -d -v /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf nginx
                 '
             """
         }
