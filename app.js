@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/goals", async (req, res) => {
-    console.log("Hello ssss from skrtttttt!!!! " + hostname);
+    console.log("Hello ssss " + hostname);
     try {
         const goals = await Goal.find();
         res.status(200).json({
@@ -37,7 +37,7 @@ app.get("/goals", async (req, res) => {
             goals: goals.map((goal) => ({
                 id: goal.id,
                 text: goal.text,
-                version: "version",
+                version: "version@@@",
             })),
         });
         console.log("FETCHED GOALS");
